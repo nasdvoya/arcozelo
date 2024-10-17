@@ -11,7 +11,7 @@
 
 <body>
     <h1 x-data="{ message: 'I ❤️ Alpine' }" x-text="message"></h1>
-    <button hx-get="http://localhost:8000/contacts" hx-target="#contact-list" hx-trigger="click">Load Contacts</button>
+    <button hx-get="http://localhost:8000/test" hx-target="#contact-list" hx-trigger="click">Load Contacts</button>
     <div id="contact-list">
         <!-- Contacts will be loaded here -->
     </div>

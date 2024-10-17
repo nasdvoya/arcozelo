@@ -1,34 +1,34 @@
 use askama::Template;
 use axum::response::Html;
 
-pub fn contacts() -> Html<String> {
+pub fn donors() -> Html<String> {
     let contacts = [
-        Contact {
+        Donor {
             name: "Alice",
             email: "alice@example.com",
         },
-        Contact {
+        Donor {
             name: "Bob",
             email: "bob@example.com",
         },
-        Contact {
+        Donor {
             name: "Charlie",
             email: "charlie@example.com",
         },
     ];
-    let template = ContactsTemplate {
-        contacts: &contacts,
-    };
+    let template = DonorsTemplate { donors: &contacts };
+    let rendered_html = template.render().unwrap();
+    println!("{}", rendered_html); // Print the rendered HTML
     Html(template.render().unwrap())
 }
 
 #[derive(Template)]
-#[template(path = "contacts.html")]
-struct ContactsTemplate<'a> {
-    contacts: &'a [Contact<'a>],
+#[template(path = "donors.html")]
+struct DonorsTemplate<'a> {
+    donors: &'a [Donor<'a>],
 }
 
-struct Contact<'a> {
+struct Donor<'a> {
     name: &'a str,
     email: &'a str,
 }
