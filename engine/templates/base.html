@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}My Application{% endblock %}</title>
-        <script>
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>{% block title %}My Application{% endblock %}</title>
+                <script>
                 async function loadContacts() {
                         const response = await fetch('/contacts');
                         const contactsHtml = await response.text();
                         document.getElementById('contacts-container').innerHTML = contactsHtml;
                 }
-        </script>
-</head>
+                </script>
+        </head>
 
-<body>
-        <header>
-                <h1>{% block header %}Header{% endblock %}</h1>
-        </header>
-        <aside>
-                {% block sidebar %}
-                <nav>
-                        <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><button onclick="loadContacts()">Load Contacts</button></li>
-                                <!-- Add more links as needed -->
-                        </ul>
-                </nav>
-                {% endblock %}
-        </aside>
-        <main>
-                {% block content %}
-                <div id="contacts-container">
-                        <!-- Contact list will be loaded here -->
-                </div>
-                {% endblock %}
-        </main>
-        <footer>
-                {% block footer %}Footer{% endblock %}
-        </footer>
-</body>
+        <body>
+                <header>
+                        <h1>{% block header %}Header{% endblock %}</h1>
+                </header>
+                <aside>
+                        {% block sidebar %}
+                        <nav>
+                                <ul>
+                                        <li><a href="/">Home</a></li>
+                                        <li><button onclick="loadContacts()">Load Contacts</button></li>
+                                        <!-- Add more links as needed -->
+                                </ul>
+                        </nav>
+                        {% endblock %}
+                </aside>
+                <main>
+                        {% block content %}
+                        <div id="contacts-container">
+                                <!-- Contact list will be loaded here -->
+                        </div>
+                        {% endblock %}
+                </main>
+                <footer>
+                        {% block footer %}Footer{% endblock %}
+                </footer>
+        </body>
 
 </html>

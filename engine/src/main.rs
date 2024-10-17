@@ -1,14 +1,15 @@
-use axum::{routing::get, Router};
+use axum::routing::post;
+use axum::{routing::get, Form, Router};
+use card_handler::submit_card;
 use tower_http::cors::CorsLayer;
 
-mod handlers;
+mod card_handler;
 
 #[tokio::main]
 async fn main() {
     let app = Router::new()
         .route("/", get(|| async { "Hallo" }))
-        .route("/contacts", get(handlers::donors()))
-        .route("/test", get(|| async { "Simple value" }))
+        .route("/send", post(submit_card))
         .layer(CorsLayer::very_permissive());
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
