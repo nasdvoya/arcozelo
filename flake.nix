@@ -38,6 +38,8 @@
       devShells = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.mkShell {
           packages = with pkgs; [
+            tailwindcss
+            nodejs
             rustToolchain
             openssl
             pkg-config

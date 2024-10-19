@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js and HTMX Example</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.5.0"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            flex-direction: column; /* optional, if you want content stacked vertically */
+        }
+        .contributor-search {
+            width: 1000px; /* Adjust width */
+            height: 40px; /* Adjust height */
+            padding: 10px; /* Padding for better spacing */
+            font-size: 16px; /* Increase text size */
+        }
+    </style>
+</head>
+
+<body>
+<h1 x-data="{ message: 'I ❤️ turtles' }" x-text="message"></h1>
+<div id="new-contributor">
+    <label>
+        <input type="text" class="contributor-search" placeholder="Search for contributor or event...">
+    </label>
+</div>
+</body>
+</html>
