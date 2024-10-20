@@ -1,6 +1,6 @@
 function page_loader() {
     return {
-        currentSlide: 0,
+        currentSlide: 3,
         loadedContent: '', // Holds the currently loaded slide content
         slides: [
             './pages/home.html',
@@ -22,6 +22,15 @@ function page_loader() {
                     this.preloadNextSlide(); // Preload the next slide
                 })
                 .catch(error => console.error('Error loading slide:', error));
+        },
+        // Load a specific page (e.g., when clicking on Home)
+        loadSpecificPage(page) {
+            fetch(`./pages/${page}`)
+                .then(response => response.text())
+                .then(html => {
+                    this.loadedContent = html; // Load the content directly
+                })
+                .catch(error => console.error('Error loading specific page:', error));
         },
         nextSlide() {
             this.currentSlide = (this.currentSlide + 1) % this.slides.length;
