@@ -2484,8 +2484,20 @@ html {
   height: 24rem;
 }
 
+.max-h-96 {
+  max-height: 24rem;
+}
+
+.max-h-screen {
+  max-height: 100vh;
+}
+
 .min-h-screen {
   min-height: 100vh;
+}
+
+.min-h-32 {
+  min-height: 8rem;
 }
 
 .w-1\/3 {
@@ -2631,6 +2643,11 @@ html {
   padding-bottom: 1.5rem;
 }
 
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
 .text-left {
   text-align: left;
 }
@@ -2680,6 +2697,11 @@ html {
 .text-neutral-content {
   --tw-text-opacity: 1;
   color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+}
+
+.text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .shadow {
