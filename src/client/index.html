@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="light" lang="en">
+<html data-theme="cupcake" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
+<body class="flex flex-col h-screen"> <!-- Make body a flex container with full screen height -->
 <!-- Navbar -->
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 h-16"> <!-- Fixed height for the navbar -->
     <div class="flex-1">
         <a class="btn btn-ghost text-xl">Home</a>
     </div>
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <ul tabindex="0" class="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
                 <li><a class="justify-between">Perfil</a></li>
                 <li><a>Configurações</a></li>
                 <li><a>Sair</a></li>
@@ -34,14 +34,14 @@
 </div>
 
 <!-- Carousel with Lazy Loading -->
-<div x-data="carousel()" class="carousel flex flex-row items-center" style="min-height: calc(100vh - 4rem);">
+<div x-data="carousel()" class="carousel flex-grow flex flex-row items-center"> <!-- Allow carousel to grow and fill remaining space -->
     <!-- Previous Button -->
     <div class="basis-1/10 flex items-center justify-center">
         <a href="#" class="btn btn-circle" @click.prevent="prevSlide()">❮</a>
     </div>
 
     <!-- Slide Content (Lazy Loaded) -->
-    <div class="grow flex items-center justify-center h-full bg-gray-200">
+    <div class="grow flex items-center justify-center h-full">
         <div x-html="loadedContent" class="text-center"></div> <!-- Content will be loaded here -->
     </div>
 
@@ -51,7 +51,33 @@
     </div>
 </div>
 
+<!-- Progress (below the carousel) -->
+<div class="w-full text-center p-2 items-center justify-center">
+    <ul class="steps items-center ">
+        <li class="step step-primary">Perfil temporario</li>
+        <li class="step step-primary">Evento criado</li>
+        <li class="step">Perfil permanente</li>
+    </ul>
+</div>
+<button class="btn btn-circle btn-accent fixed bottom-5 right-5 w-20 h-20">
+    <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-12 w-12"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor">
+        <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 4v16m8-8H4" /> <!-- Plus symbol -->
+    </svg>
+</button>
+
+
+
+
 <!-- External script reference -->
-<script src="./scripts/carousel.js"></script> <!-- Link to your external JS file -->
+<script src="./scripts/carousel.js"></script>
 </body>
 </html>
