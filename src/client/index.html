@@ -34,7 +34,8 @@
 </div>
 
 <!-- Carousel with Lazy Loading -->
-<div x-data="carousel()" class="carousel flex-grow flex flex-row items-center"> <!-- Allow carousel to grow and fill remaining space -->
+<div x-data="page_loader()" class="carousel flex-grow flex flex-row items-center">
+    <!-- Allow carousel to grow and fill remaining space -->
     <!-- Previous Button -->
     <div class="basis-1/10 flex items-center justify-center">
         <a href="#" class="btn btn-circle" @click.prevent="prevSlide()">❮</a>
@@ -59,25 +60,9 @@
         <li class="step">Perfil permanente</li>
     </ul>
 </div>
-<button class="btn btn-circle btn-accent fixed bottom-5 right-5 w-20 h-20">
-    <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-12 w-12"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor">
-        <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 4v16m8-8H4" /> <!-- Plus symbol -->
-    </svg>
-</button>
-
-
 
 
 <!-- External script reference -->
-<script src="./scripts/carousel.js"></script>
+<script src="./scripts/page_loader.js"></script>
 </body>
 </html>

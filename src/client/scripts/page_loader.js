@@ -1,11 +1,11 @@
-function carousel() {
+function page_loader() {
     return {
-        currentSlide: 0,
+        currentSlide: 2,
         loadedContent: '', // Holds the currently loaded slide content
         slides: [
-            'events.html', // Path to the first slide
-            'permanent-profile.html', // Path to the second slide
-            'temporary-profile.html'  // Path to the third slide
+            './pages/events.html', // Path to the first slide
+            './pages/permanent-profile.html', // Path to the second slide
+            './pages/temporary-profile.html'  // Path to the third slide
         ],
         // Preload the next slide
         preloadNextSlide() {
