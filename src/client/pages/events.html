@@ -136,7 +136,22 @@
             </tbody>
         </table>
     </div>
-    <button class="btn btn-accent sm:btn-sm md:btn-md lg:btn-lg rounded-full h-10 w-full mt-3 rounded-lg">
+    <button class="btn btn-accent sm:btn-sm md:btn-md lg:btn-lg rounded-full h-10 w-full mt-3 rounded-lg"
+            onclick="my_modal_4.showModal()">
         Novo evento
     </button>
+    <!-- Open the modal using ID.showModal() method -->
+
+
 </div>
+<dialog id="my_modal_4" class="modal">
+    <div class="modal-box w-full h-full max-w-6xl max-h-none">
+        <h3 class="text-lg font-bold">Hello!</h3>
+        <p class="py-4">Click the button below to close</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+            </form>
+        </div>
+    </div>
+</dialog>
