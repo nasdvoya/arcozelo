@@ -13,7 +13,7 @@
 <!-- Navbar -->
 <div class="navbar bg-base-100 h-16">
     <div class="flex-1">
-        <a href="#" hx-get="./pages/home.html" hx-target="#content" class="btn btn-ghost text-xl">Home</a>
+        <a href="#" hx-get="./pages/temporary-profile.html" hx-target="#content" class="btn btn-ghost text-xl">Home</a>
     </div>
     <div class="flex-none">
         <div class="dropdown dropdown-end">
@@ -34,31 +34,16 @@
 </div>
 
 <!-- Carousel with Lazy Loading -->
-<div x-data="page_loader()" x-init="init()" class="carousel flex-grow flex flex-row items-center">
-    <!-- Previous Button -->
-    <div class="basis-1/10 flex items-center justify-center">
-        <a href="#" class="btn btn-circle" @click.prevent="prevSlide()">❮</a>
-    </div>
-
+<div class="carousel flex-grow flex flex-row items-center">
     <!-- Slide Content (Lazy Loaded) -->
-    <div class="grow flex items-center justify-center h-full">
+    <div id="content" hx-get="./pages/home.html" hx-trigger="load"
+         class="grow flex items-center justify-center h-full">
         <div x-html="loadedContent" class="text-center"></div> <!-- Content will be loaded here -->
     </div>
-
-    <!-- Next Button -->
-    <div class="basis-1/10 flex items-center justify-center">
-        <a href="#" class="btn btn-circle" @click.prevent="nextSlide()">❯</a>
-    </div>
 </div>
 
-<!-- Progress (below the carousel) -->
-<div class="w-full text-center p-2 items-center justify-center">
-    <ul class="steps items-center">
-        <li class="step step-primary">Perfil temporario</li>
-        <li class="step step-primary">Evento criado</li>
-        <li class="step">Perfil permanente</li>
-    </ul>
-</div>
+<!-- Footer (HTMX will load the footer here) -->
+<div hx-get="./pages/footer.html" hx-trigger="load" hx-target="this"></div>
 
 <!-- External script reference -->
 <script src="./scripts/page_loader.js"></script>
