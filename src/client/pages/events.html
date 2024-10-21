@@ -143,12 +143,44 @@
 
     <dialog id="my_modal_4" class="modal">
         <div class="modal-box w-11/12 h-5/6 max-w-none max-h-none">
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">Click the button below to close</p>
-            <div class="modal-action">
-                <form method="dialog">
-                    <button class="btn">Close</button>
-                </form>
+            <div class="grid grid-cols-2 gap-8 text-left">
+                <!-- Left Column -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Data de ligação</label>
+                        <input type="date" class="input input-bordered rounded-lg w-2/3" />
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Valor</label>
+                        <input type="text" placeholder="Valor" class="input input-bordered rounded-lg w-2/3" />
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Data da coleta</label>
+                        <input type="date" class="input input-bordered rounded-lg w-2/3" />
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Método de pagamento</label>
+                        <input type="text" placeholder="Método de pagamento"
+                            class="input input-bordered rounded-lg w-2/3" />
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Data da próxima ligação</label>
+                        <input type="date" class="input input-bordered rounded-lg w-2/3" />
+                    </div>
+
+                    <div class="flex items-center mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Observações</label>
+                        <textarea placeholder="Observações"
+                            class="textarea textarea-bordered rounded-lg w-2/3"></textarea>
+                    </div>
+                </div>
             </div>
         </div>
     </dialog>
