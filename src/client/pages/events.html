@@ -1,4 +1,4 @@
-<div class="max-h-screen"> 
+<div class="max-h-screen">
     <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporario</h2>
     <div class="overflow-x-auto overflow-y-auto" style="max-height: 90%;">
         <table class="table table-pin-rows table-pin-cols w-full">
@@ -36,12 +36,12 @@
         </table>
     </div>
     <button class="btn btn-accent sm:btn-sm md:btn-md lg:btn-lg rounded-full h-10 w-full mt-3 rounded-lg"
-        onclick="my_modal_4.showModal()">
+        onclick="my_modal_1.showModal()">
         Novo evento
     </button>
 
     <!-- Modal for creating new events -->
-    <dialog id="my_modal_4" class="modal fixed flex items-center justify-center z-50">
+    <dialog id="my_modal_1" class="modal fixed flex items-center justify-center z-50">
         <div class="modal-box w-11/12 h-5/6 max-w-none max-h-none p-8">
             <h2 class="text-5xl font-bold mb-12 text-center">Novo evento</h2>
             <div x-data="{selected_payment: 'payment_multib'}" class="grid grid-cols-2 gap-8 text-left">
@@ -81,7 +81,8 @@
                     <div x-show="selected_payment === 'payment_multib'" class="ml-20">
                         <div class="flex items-center mb-6 ">
                             <label class="w-1/3 text-gray-700 font-semibold">Referência</label>
-                            <input type="text" placeholder="Ex: 123 456 789" class="input input-bordered rounded-lg w-1/2" />
+                            <input type="text" placeholder="Ex: 123 456 789"
+                                class="input input-bordered rounded-lg w-1/2" />
                         </div>
                         <div class="flex items-center mb-6 ">
                             <label class="w-1/3 text-gray-700 font-semibold">Data de validade</label>
@@ -96,7 +97,8 @@
                     <div x-show="selected_payment === 'payment_transfer'" class="ml-20">
                         <div class="flex items-center mb-6 ">
                             <label class="w-1/3 text-gray-700 font-semibold">Nome de transferência</label>
-                            <input type="text" placeholder="Joaquim Alberto de Souza" class="input input-bordered rounded-lg w-1/2" />
+                            <input type="text" placeholder="Joaquim Alberto de Souza"
+                                class="input input-bordered rounded-lg w-1/2" />
                         </div>
                     </div>
                 </div>
@@ -105,18 +107,25 @@
             <div class="divider items-center mb-6 ml-20 mr-20"></div>
             <!-- End of grid -->
             <div class="grid grid-cols-2 gap-8 text-left">
-            <!-- <div class="mr-20 ml-20"> -->
+                <!-- <div class="mr-20 ml-20"> -->
                 <div class="ml-20">
-                <div class="flex mb-6">
-                    <label class="w-1/3 text-gray-700 font-semibold">Data da próxima ligação</label>
-                    <input type="date" class="input input-bordered rounded-lg w-1/2" />
-                </div>
-                <div class="flex mb-6">
-                    <label class="w-1/3 text-gray-700 font-semibold">Observações</label>
-                    <textarea placeholder="Observações" class="textarea textarea-bordered rounded-lg w-1/2"></textarea>
-                </div>
+                    <div class="flex mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Data da próxima ligação</label>
+                        <input type="date" class="input input-bordered rounded-lg w-1/2" />
+                    </div>
+                    <div class="flex mb-6">
+                        <label class="w-1/3 text-gray-700 font-semibold">Observações</label>
+                        <textarea placeholder="Observações"
+                            class="textarea textarea-bordered rounded-lg w-1/2"></textarea>
+                    </div>
                 </div>
             </div>
+            <form method="dialog">
+                <button for="my_modal_4"
+                    class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10">Cancelar</button>
+            </form>
+            <button
+                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-accent fixed rounded-full bottom-11 right-10">Confirmar</button>
         </div>
     </dialog>
 </div>
