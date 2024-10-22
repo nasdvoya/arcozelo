@@ -2456,6 +2456,10 @@ html {
   position: fixed;
 }
 
+.inset-0 {
+  inset: 0px;
+}
+
 .bottom-11 {
   bottom: 2.75rem;
 }
@@ -2470,6 +2474,10 @@ html {
 
 .z-\[1\] {
   z-index: 1;
+}
+
+.z-50 {
+  z-index: 50;
 }
 
 .col-span-2 {
@@ -2583,6 +2591,10 @@ html {
 
 .w-full {
   width: 100%;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
 }
 
 .max-w-4xl {
