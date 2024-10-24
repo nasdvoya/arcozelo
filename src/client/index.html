@@ -33,16 +33,13 @@
             </div>
         </div>
     </div>
-
     <div class="flex-grow flex">
         <div id="content" hx-get="./pages/events.html" hx-trigger="load" class="grow flex justify-center h-full">
             <div x-html="loadedContent" class="text-center"></div> <!-- Content will be loaded here -->
         </div>
     </div>
-
     <!-- Footer (HTMX will load the footer here) -->
     <div hx-get="./pages/footer.html" hx-trigger="load" hx-target="this"></div>
-
     <!-- External script reference -->
     <script src="./scripts/page_loader.js"></script>
 </body>
