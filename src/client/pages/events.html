@@ -41,6 +41,7 @@
     </button>
     <!-- Modal for creating new events -->
     <dialog id="my_modal_1" class="modal fixed flex items-center justify-center z-50">
+        <!--- State properties -->
         <div class="modal-box w-11/12 h-5/6 max-w-none max-h-none p-8 " x-data="{ 
                  selected_payment: 'payment_multib', 
                  valor: '', 
@@ -50,7 +51,6 @@
                  observacoes: ''
              }">
             <h2 class="text-5xl font-bold mb-12 text-center">Novo evento</h2>
-
             <div class="grid grid-cols-2 gap-8 text-left">
                 <!-- Left Column -->
                 <div class="ml-20">
@@ -60,7 +60,6 @@
                         <input type="date" class="input input-bordered rounded-lg w-1/2" required
                             x-init="$el.value = new Date().toISOString().split('T')[0]" />
                     </div>
-
                     <div class="flex items-center mb-6 ">
                         <label class="w-1/3 text-gray-700 font-semibold">Valor<span class="text-red-500">
                                 *</span></label>
@@ -68,7 +67,6 @@
                             x-model="valor"
                             :required="['payment_multib', 'payment_mail', 'payment_payshop'].includes(selected_payment)" />
                     </div>
-
                     <div class="flex items-center mb-6">
                         <label class="w-1/3 text-gray-700 font-semibold">Data da coleta</label>
                         <input type="date" class="input input-bordered rounded-lg w-1/2" />
@@ -89,7 +87,6 @@
                         </select>
                     </div>
                 </div>
-
                 <!-- Right Column -->
                 <div class="mr-20">
                     <!-- Conditional fields -->
@@ -101,7 +98,6 @@
                             <input type="text" placeholder="Ex: 123 456 789"
                                 class="input input-bordered rounded-lg w-1/2" x-model="referencia" required />
                         </div>
-
                         <div class="flex items-center mb-6 ">
                             <label class="w-1/3 text-gray-700 font-semibold">Data de validade<span class="text-red-500">
                                     *</span></label>
@@ -109,7 +105,6 @@
                                 required />
                         </div>
                     </div>
-
                     <!-- Case: Transferência -->
                     <div x-show="selected_payment === 'payment_transfer'" class="ml-20">
                         <div class="flex items-center mb-6 ">
@@ -121,9 +116,7 @@
                     </div>
                 </div>
             </div>
-
             <div class="divider items-center mb-6 ml-20 mr-20"></div>
-
             <!-- Additional Fields -->
             <div class="grid grid-cols-2 gap-8 text-left">
                 <div class="ml-20">
@@ -135,7 +128,6 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal Buttons -->
             <form method="dialog">
                 <button for="my_modal_4"
@@ -154,5 +146,4 @@
             </button>
         </div>
     </dialog>
-
 </div>
