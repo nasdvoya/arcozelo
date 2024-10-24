@@ -1,8 +1,7 @@
+<!-- State properties -->
 <div class="max-w-4xl mx-auto p-6"
     x-data="{ var_personalcontact: '', var_workcontact: '', var_residentialcontact: '' }">
-    <!-- Form Heading -->
     <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporario</h2>
-
     <div class="grid grid-cols-2 gap-8 text-left">
         <!-- Left Column -->
         <div>
@@ -10,18 +9,14 @@
                 <label class="w-1/3 text-gray-700 font-semibold">Nome</label>
                 <input type="text" placeholder="John Doe" class="input input-bordered rounded-lg w-2/3" />
             </div>
-
             <div class="flex items-center mb-6">
                 <label class="w-1/3 text-gray-700 font-semibold">Email</label>
                 <input type="email" placeholder="johndoe@example.com" class="input input-bordered rounded-lg w-2/3" />
             </div>
-
             <div class="flex items-center mb-6">
                 <label class="w-1/3 text-gray-700 font-semibold">Horário</label>
                 <input type="text" placeholder="HH:MM" class="input input-bordered rounded-lg w-2/3" />
             </div>
-
-            <!-- Doador (Checkbox) -->
             <div class="flex items-center mb-6">
                 <label class="w-1/3 text-gray-700 font-semibold">Doador</label>
                 <input type="text" placeholder="HH:MM" class="input input-bordered rounded-lg w-2/3" />
@@ -32,7 +27,6 @@
                 <input type="text" placeholder="Local de Cobrança" class="input input-bordered rounded-lg w-2/3" />
             </div>
         </div>
-
         <!-- Right Column -->
         <div>
             <div class="flex items-center mb-6">
@@ -54,7 +48,6 @@
                 <label class="w-1/3 text-gray-700 font-semibold">C.P.</label>
                 <input type="text" placeholder="Código Postal" class="input input-bordered rounded-lg w-2/3" />
             </div>
-
             <div class="flex items-center mb-6">
                 <label class="w-1/3 text-gray-700 font-semibold">Tel. Residencial<span class="text-red-500">
                         *</span></label>
@@ -69,16 +62,12 @@
                     x-model="var_workcontact" required inputmode="numeric" maxlength="9"
                     @input="var_workcontact = var_workcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
             </div>
-
-            <!-- Telemovel Field (Required) -->
-            <!-- TODO: At least one phone must be filled-->
             <div class="flex items-center mb-6">
                 <label class="w-1/3 text-gray-700 font-semibold">Telemóvel<span class="text-red-500"> *</span></label>
                 <input type="text" placeholder="Telemóvel" class="input input-bordered rounded-lg w-2/3"
                     x-model="var_personalcontact" required inputmode="numeric" maxlength="9"
                     @input="var_personalcontact = var_personalcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
             </div>
-
         </div>
         <!-- Observações (Textarea Spanning Two Columns) -->
         <div class="col-span-2">
@@ -87,12 +76,10 @@
                     class="textarea textarea-bordered textarea-lg rounded-lg w-full"></textarea>
             </div>
         </div>
-
         <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10 h-20 mb-14">
             Cancelar
         </button>
-
-        <!-- Criar Perfil Button, Disabled unless Telemovel is filled -->
+        <!-- Criar Perfil Button, at lease one phone must be filled -->
         <button href="#" hx-get="./pages/events.html" hx-target="#content"
             class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
             :disabled="!(var_personalcontact.length == 9 || var_workcontact.length == 9 || var_residentialcontact.length == 9)">
