@@ -95,7 +95,7 @@
         <!-- Criar Perfil Button, Disabled unless Telemovel is filled -->
         <button href="#" hx-get="./pages/events.html" hx-target="#content"
             class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
-            :disabled="var_personalcontact.length !== 9">
+            :disabled="!(var_personalcontact.length == 9 || var_workcontact.length == 9 || var_residentialcontact.length == 9)">
             Criar perfil
         </button>
     </div>
