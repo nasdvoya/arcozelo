@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html data-theme="cupcake" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,42 +11,41 @@
 </head>
 
 <body class="flex flex-col h-screen">
-<!-- Navbar -->
-<div class="navbar bg-base-100 h-16">
-    <div class="flex-1">
-        <a href="#" hx-get="./pages/home.html" hx-target="#content" class="btn btn-ghost text-xl">Home</a>
-    </div>
-    <div class="flex-none">
-        <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-                <div class="avatar online placeholder">
-                    <div class="bg-neutral text-neutral-content w-10 rounded-full">
-                        <span class="text-xl">LS</span>
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 h-16">
+        <div class="flex-1">
+            <a href="#" hx-get="./pages/home.html" hx-target="#content" class="btn btn-ghost text-xl">Home</a>
+        </div>
+        <div class="flex-none">
+            <div class="dropdown dropdown-end">
+                <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                    <div class="avatar online placeholder">
+                        <div class="bg-neutral text-neutral-content w-10 rounded-full">
+                            <span class="text-xl">LS</span>
+                        </div>
                     </div>
                 </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                    <li><a class="justify-between">Perfil</a></li>
+                    <li><a>Configurações</a></li>
+                    <li><a>Sair</a></li>
+                </ul>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li><a class="justify-between">Perfil</a></li>
-                <li><a>Configurações</a></li>
-                <li><a>Sair</a></li>
-            </ul>
         </div>
     </div>
-</div>
 
-<!-- Carousel with Lazy Loading -->
-<div class="carousel flex-grow flex">
-    <!-- Slide Content (Lazy Loaded) -->
-    <div id="content" hx-get="./pages/events.html" hx-trigger="load"
-         class="grow flex justify-center h-full">
-        <div x-html="loadedContent" class="text-center"></div> <!-- Content will be loaded here -->
+    <div class="flex-grow flex">
+        <div id="content" hx-get="./pages/temporary-profile.html" hx-trigger="load"
+            class="grow flex justify-center h-full">
+            <div x-html="loadedContent" class="text-center"></div> <!-- Content will be loaded here -->
+        </div>
     </div>
-</div>
 
-<!-- Footer (HTMX will load the footer here) -->
-<div hx-get="./pages/footer.html" hx-trigger="load" hx-target="this"></div>
+    <!-- Footer (HTMX will load the footer here) -->
+    <div hx-get="./pages/footer.html" hx-trigger="load" hx-target="this"></div>
 
-<!-- External script reference -->
-<script src="./scripts/page_loader.js"></script>
+    <!-- External script reference -->
+    <script src="./scripts/page_loader.js"></script>
 </body>
+
 </html>
