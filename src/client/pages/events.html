@@ -135,8 +135,6 @@
                     Cancelar
                 </button>
             </form>
-            <!-- TODO: Only mandantory on multibanco, mail register, payshotop -->
-            <!-- Confirmar Button, Disabled if required fields are empty -->
             <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-accent fixed rounded-full bottom-11 right-10"
                 :disabled="(selected_payment === 'payment_multib' && (valor === '' || referencia === '' || validade === '')) || 
                             (selected_payment === 'payment_mail' && (valor === '')) ||
