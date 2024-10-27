@@ -21,7 +21,7 @@ pub struct CardData {
     membership_number: String,
 }
 
-pub async fn submit_card(Form(card): Form<CardData>) -> Html<String> {
+pub async fn submit_card_handler(Form(card): Form<CardData>) -> Html<String> {
     println!("Received card submission");
     // let fields = [
     //     ("Name", &card.name),
