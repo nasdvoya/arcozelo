@@ -1,3 +1,3 @@
-pub async fn donor_event() {
-    println!("Received new donor event");
-}
+pub async fn new_event_started() {}
+pub async fn new_event_cancelled() {}
+pub async fn create_new_event() {}
