@@ -9,11 +9,21 @@ mod endpoints;
 
 #[tokio::main]
 async fn main() {
-    let url = "postgres://postgres:test@localhost/donors";
-    let pool = PgPoolOptions::new().max_connections(5).connect(url).await;
+    dotenv::dotenv().expect("Failed to load .env file");
 
-    let app = Router::new()
-        .route("/s", get(|| async { "Hallo" }))
+    let api_address = std::env::var("API_ADDRESS").unwrap_or("127.0.0.1:8000".to_owned());
+    let database_url = std::env::var("DATABASE_URL").expect("Database not found");
+
+    let database_pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .expect("Failed to connect to database");
+
+    let tcp_listener = tokio::net::TcpListener::bind(api_address).await.unwrap();
+
+    let api = Router::new()
+        .route("/", get(|| async { "Hallo" }))
         .route("/send", post(card_handler::submit_card_handler))
         .route("/login", post(account_handler::login))
         .route("/logout", post(account_handler::logout))
@@ -39,11 +49,11 @@ async fn main() {
         )
         .route(
             "/create-temp-profile",
-            post(donor_profile_handler::create_new_temp_profile),
+            get(donor_profile_handler::create_new_temp_profile),
         )
+        .with_state(database_pool)
         .layer(CorsLayer::very_permissive());
 
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
     println!("listening on port 8000");
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(tcp_listener, api).await.unwrap();
 }

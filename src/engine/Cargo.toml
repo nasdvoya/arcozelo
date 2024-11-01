@@ -8,14 +8,15 @@ edition = "2021"
 [dependencies]
 dotenv = "0.15.0"
 askama = "0.12.1"
+uuid = { version = "1", features = ["v4", "serde"] }
 axum = { version = "0.7.5", features = ["form"] }
 axum-error = "0.2.0"
 axum-macros = "0.4.1"
-sqlx = { version = "0.7.4", features = ["runtime-tokio", "tls-rustls", "postgres", "chrono"] }
+sqlx = { version = "0.7.4", features = ["runtime-tokio", "tls-rustls", "postgres", "chrono", "uuid"] }
 tokio = { version = "1.36.0", features = ["full"] }
 tower-http = { version = "0.5.2", features = ["cors"] }
 hyper = { version = "1.2.0", features = ["full"] }
 serde = { version = "1.0.197", features = ["derive"] }
 serde_json = "1.0.114"
 lazy_static = "1.4.0"
-chrono = "0.4.38"
+chrono = { version = "0.4.38", features = ["serde"] }
