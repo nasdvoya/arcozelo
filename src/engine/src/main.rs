@@ -2,19 +2,23 @@ use axum::routing::post;
 use axum::{routing::get, Form, Router};
 use endpoints::card_handler::{self};
 use endpoints::{account_handler, donor_events_handler, donor_profile_handler};
+use sqlx::postgres::PgPoolOptions;
 use tower_http::cors::CorsLayer;
 
 mod endpoints;
 
 #[tokio::main]
 async fn main() {
+    let url = "postgres://postgres:test@localhost/donors";
+    let pool = PgPoolOptions::new().max_connections(5).connect(url).await;
+
     let app = Router::new()
-        .route("/", get(|| async { "Hallo" }))
+        .route("/s", get(|| async { "Hallo" }))
         .route("/send", post(card_handler::submit_card_handler))
         .route("/login", post(account_handler::login))
         .route("/logout", post(account_handler::logout))
         .route(
-            "(/user-actions/start-new-event",
+            "/user-actions/start-new-event",
             post(donor_events_handler::new_event_started),
         )
         .route(
