@@ -5,34 +5,6 @@ use serde::{Deserialize, Serialize};
 use sqlx::{types::uuid, PgPool};
 use uuid::Uuid;
 
-pub async fn new_temp_profile_started() {
-    println!("Database query complete");
-}
-pub async fn new_temp_profile_cancelled() {
-    todo!()
-}
-
-pub async fn create_new_temp_profile(
-    State(db_pool): State<PgPool>,
-) -> Result<(StatusCode, Json<Doadores>), (StatusCode, String)> {
-    println!("create_new_temp_profile");
-    let result = sqlx::query_as!(Doadores, "SELECT * FROM doadores LIMIT 1")
-        .fetch_one(&db_pool)
-        .await;
-    println!("Database query complete");
-
-    match result {
-        Ok(row) => Ok((StatusCode::OK, Json(row))), // Success: Return the row as JSON
-        Err(err) => {
-            eprintln!("Failed to fetch profile: {:?}", err); // Log the error for debugging
-            Err((
-                StatusCode::INTERNAL_SERVER_ERROR,
-                "Failed to fetch profile".into(),
-            ))
-        }
-    }
-}
-
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Doadores {
     pub id: Uuid,                         // UUID for unique identifier
@@ -49,4 +21,26 @@ pub struct Doadores {
     pub telemovel: Option<String>,        // Nullable mobile phone
     pub criado_em: Option<NaiveDateTime>, // Nullable timestamp for creation
     pub observacoes: Option<String>,      // Nullable notes or observations
+}
+
+pub async fn new_temp_profile_started() {
+    todo!()
+}
+pub async fn new_temp_profile_cancelled() {
+    todo!()
+}
+pub async fn create_new_temp_profile() {
+    todo!()
+}
+
+pub async fn get_all_donors(State(db_pool): State<PgPool>) -> Result<(StatusCode, Json<Doadores>), (StatusCode, String)> {
+    let result = sqlx::query_as!(Doadores, "SELECT * FROM doadores LIMIT 1").fetch_one(&db_pool).await;
+
+    match result {
+        Ok(row) => Ok((StatusCode::OK, Json(row))),
+        Err(err) => {
+            eprintln!("Failed to fetch profile: {:?}", err);
+            Err((StatusCode::INTERNAL_SERVER_ERROR, "Failed to fetch profile".into()))
+        }
+    }
 }

@@ -69,6 +69,7 @@
               cargo-deny
               cargo-edit
               cargo-watch
+              sqlx-cli
             ];
 
             env = {
