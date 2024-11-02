@@ -1,6 +1,5 @@
 use axum::routing::post;
-use axum::{routing::get, Form, Router};
-use endpoints::card_handler::{self};
+use axum::{routing::get, Router};
 use endpoints::{account_handler, donor_events_handler, donor_profile_handler};
 use sqlx::postgres::PgPoolOptions;
 use tower_http::cors::CorsLayer;
@@ -20,7 +19,6 @@ async fn main() {
 
     let api = Router::new()
         .route("/", get(|| async { "Hallo" }))
-        .route("/send", post(card_handler::submit_card_handler))
         .route("/login", post(account_handler::login))
         .route("/logout", post(account_handler::logout))
         .route("/donor-event/action//start-new-event", post(donor_events_handler::new_event_started))

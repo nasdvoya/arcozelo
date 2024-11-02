@@ -1,0 +1,2 @@
+ALTER TABLE doadores
+DROP COLUMN IF EXISTS birth_date;
