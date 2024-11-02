@@ -6,7 +6,7 @@ use sqlx::{types::uuid, PgPool};
 use uuid::Uuid;
 
 #[derive(Deserialize, Serialize, Debug)]
-pub struct Doadores {
+pub struct Doador {
     pub id: Uuid,                         // UUID for unique identifier
     pub nome: Option<String>,             // Nullable name of the donor
     pub email: Option<String>,            // Nullable email
@@ -29,17 +29,56 @@ pub async fn new_temp_profile_started() {
 pub async fn new_temp_profile_cancelled() {
     todo!()
 }
-pub async fn create_new_temp_profile() {
-    todo!()
-}
 
-pub async fn get_all_donors(State(db_pool): State<PgPool>) -> Result<(StatusCode, Json<Doadores>), (StatusCode, String)> {
-    let result = sqlx::query_as!(Doadores, "SELECT * FROM doadores LIMIT 1").fetch_one(&db_pool).await;
+pub async fn new_donor(State(db_pool): State<PgPool>, Json(new_donor): Json<Doador>) -> Result<(StatusCode, String), (StatusCode, String)> {
+    let result = sqlx::query!(
+        "INSERT INTO doadores (
+            id, nome, email, horario, doador, morada, freguesia, concelho,
+            codigo_postal, tel_residencial, tel_trabalho, telemovel,
+            criado_em, observacoes
+        ) VALUES (
+            $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
+        )",
+        new_donor.id,
+        new_donor.nome,
+        new_donor.email,
+        new_donor.horario,
+        new_donor.doador,
+        new_donor.morada,
+        new_donor.freguesia,
+        new_donor.concelho,
+        new_donor.codigo_postal,
+        new_donor.tel_residencial,
+        new_donor.tel_trabalho,
+        new_donor.telemovel,
+        new_donor.criado_em,
+        new_donor.observacoes
+    )
+    .execute(&db_pool)
+    .await;
 
     match result {
-        Ok(row) => Ok((StatusCode::OK, Json(row))),
+        Ok(_) => {
+            println!("Perfil criado com sucesso");
+            Ok((StatusCode::CREATED, "Perfil criado com sucesso".into()))
+        }
         Err(err) => {
-            eprintln!("Failed to fetch profile: {:?}", err);
+            eprintln!("Falha ao criar perfil: {:?}", err);
+            Err((StatusCode::INTERNAL_SERVER_ERROR, "Falha ao criar perfil".into()))
+        }
+    }
+}
+
+pub async fn get_all_donors(State(db_pool): State<PgPool>) -> Result<(StatusCode, Json<Doador>), (StatusCode, String)> {
+    let result = sqlx::query_as!(Doador, "SELECT * FROM doadores LIMIT 1").fetch_one(&db_pool).await;
+
+    match result {
+        Ok(row) => {
+            println!("Doadores encontrados com sucesso");
+            Ok((StatusCode::OK, Json(row)))
+        }
+        Err(err) => {
+            eprintln!("Falha ao buscar doadores: {:?}", err);
             Err((StatusCode::INTERNAL_SERVER_ERROR, "Failed to fetch profile".into()))
         }
     }
