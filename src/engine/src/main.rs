@@ -28,11 +28,13 @@ async fn main() {
 
     let cors = CorsLayer::new()
         .allow_origin("http://127.0.0.1:8080".parse::<HeaderValue>().unwrap())
-        .allow_headers([http::header::CONTENT_TYPE, http::header::ACCEPT, http::header::ORIGIN])
+        .allow_headers(Any)
         .allow_methods([Method::GET, Method::POST, Method::OPTIONS]);
 
     let api = Router::new()
-        .route("/", get(|| async { "Hallo" }))
+        .route("/", post(|| async { 
+            println!("Hello");
+            "Hallo" }))
         .route("/login", post(account_handler::login))
         .route("/logout", post(account_handler::logout))
         .route(
