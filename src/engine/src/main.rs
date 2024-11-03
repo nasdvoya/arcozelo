@@ -1,8 +1,10 @@
+use axum::http::{self, HeaderValue};
 use axum::routing::post;
 use axum::{routing::get, Router};
 use endpoints::{account_handler, donor_events_handler, donor_profile_handler};
+use hyper::Method;
 use sqlx::postgres::PgPoolOptions;
-use tower_http::cors::CorsLayer;
+use tower_http::cors::{Any, CorsLayer};
 
 mod endpoints;
 
@@ -23,6 +25,11 @@ async fn main() {
         .await
         .expect("Failed to run migrations");
     let tcp_listener = tokio::net::TcpListener::bind(api_address).await.unwrap();
+
+    let cors = CorsLayer::new()
+        .allow_origin("http://127.0.0.1:8080".parse::<HeaderValue>().unwrap())
+        .allow_headers([http::header::CONTENT_TYPE, http::header::ACCEPT, http::header::ORIGIN])
+        .allow_methods([Method::GET, Method::POST, Method::OPTIONS]);
 
     let api = Router::new()
         .route("/", get(|| async { "Hallo" }))
@@ -48,7 +55,7 @@ async fn main() {
         .route("/donor-profile", post(donor_profile_handler::new_donor))
         .route("/donor-profile/all", get(donor_profile_handler::get_all_donors))
         .with_state(database_pool)
-        .layer(CorsLayer::very_permissive());
+        .layer(cors);
 
     println!("listening on port 8000");
     axum::serve(tcp_listener, api).await.unwrap();

@@ -7,7 +7,7 @@ use uuid::Uuid;
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Doador {
-    pub id: Uuid,                         // UUID for unique identifier
+    pub id: Option<Uuid>,                 // UUID for unique identifier
     pub nome: Option<String>,             // Nullable name of the donor
     pub email: Option<String>,            // Nullable email
     pub horario: Option<NaiveTime>,       // Nullable time format (e.g., '09:00')
@@ -31,6 +31,8 @@ pub async fn new_temp_profile_cancelled() {
 }
 
 pub async fn new_donor(State(db_pool): State<PgPool>, Json(new_donor): Json<Doador>) -> Result<(StatusCode, String), (StatusCode, String)> {
+    println!("new_donor:");
+    let uuid = new_donor.id.unwrap_or_else(Uuid::new_v4);
     let result = sqlx::query!(
         "INSERT INTO doadores (
             id, nome, email, horario, doador, morada, freguesia, concelho,
@@ -39,7 +41,7 @@ pub async fn new_donor(State(db_pool): State<PgPool>, Json(new_donor): Json<Doad
         ) VALUES (
             $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14
         )",
-        new_donor.id,
+        uuid,
         new_donor.nome,
         new_donor.email,
         new_donor.horario,

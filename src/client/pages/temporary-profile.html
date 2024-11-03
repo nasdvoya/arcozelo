@@ -2,88 +2,106 @@
 <div class="max-w-4xl mx-auto p-6"
     x-data="{ var_personalcontact: '', var_workcontact: '', var_residentialcontact: '' }">
     <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporario</h2>
-    <div class="grid grid-cols-2 gap-8 text-left">
-        <!-- Left Column -->
-        <div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Nome</label>
-                <input type="text" placeholder="John Doe" class="input input-bordered rounded-lg w-2/3" />
+    <form hx-post="http://127.0.0.1:8000/donor-profile" hx-target="#response" hx-ext="json-enc"
+        hx-headers='{"Content-Type": "application/json"}'>
+        <div class=" grid grid-cols-2 gap-8 text-left">
+            <!-- Left Column -->
+            <div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Nome</label>
+                    <input name="nome" type="text" placeholder="John Doe"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Email</label>
+                    <input name="email" type="email" placeholder="johndoe@example.com"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Horário</label>
+                    <input name="horario" type="text" placeholder="HH:MM"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Doador</label>
+                    <input name="doador" type="text" placeholder="HH:MM"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <!-- TODO: Add to database -->
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Local de Cobrança</label>
+                    <input type="text" placeholder="Local de Cobrança" class="input input-bordered rounded-lg w-2/3" />
+                </div>
             </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Email</label>
-                <input type="email" placeholder="johndoe@example.com" class="input input-bordered rounded-lg w-2/3" />
+            <!-- Right Column -->
+            <div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Morada</label>
+                    <input name="morada" type="text" placeholder="Morada"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Freguesia</label>
+                    <input name="freguesia" type="text" placeholder="Freguesia"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Concelho</label>
+                    <input name="concelho" type="text" placeholder="Concelho"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">C.P.</label>
+                    <input name="codigo_postal" type="text" placeholder="Código Postal"
+                        class="input input-bordered rounded-lg w-2/3" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Tel. Residencial<span class="text-red-500">
+                            *</span></label>
+                    <input name="tel_residencial" type="text" placeholder="Telefone Residencial"
+                        class="input input-bordered rounded-lg w-2/3" x-model="var_residentialcontact" required
+                        inputmode="numeric" maxlength="9"
+                        @input="var_residentialcontact = var_residentialcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Tel. Trabalho<span
+                            class="text-red-500">*</span></label>
+                    <input name="tel_trabalho" type="text" placeholder="Telefone Trabalho"
+                        class="input input-bordered rounded-lg w-2/3" x-model="var_workcontact" required
+                        inputmode="numeric" maxlength="9"
+                        @input="var_workcontact = var_workcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
+                </div>
+                <div class="flex items-center mb-6">
+                    <label class="w-1/3 text-gray-700 font-semibold">Telemóvel<span class="text-red-500">
+                            *</span></label>
+                    <input name="telemovel" type="text" placeholder="Telemóvel"
+                        class="input input-bordered rounded-lg w-2/3" x-model="var_personalcontact" required
+                        inputmode="numeric" maxlength="9"
+                        @input="var_personalcontact = var_personalcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
+                </div>
             </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Horário</label>
-                <input type="text" placeholder="HH:MM" class="input input-bordered rounded-lg w-2/3" />
+            <!-- Observações (Textarea Spanning Two Columns) -->
+            <div class="col-span-2">
+                <div class="flex items-center mb-6">
+                    <textarea name="observacoes" placeholder="Observações"
+                        class="textarea textarea-bordered textarea-lg rounded-lg w-full"></textarea>
+                </div>
             </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Doador</label>
-                <input type="text" placeholder="HH:MM" class="input input-bordered rounded-lg w-2/3" />
-            </div>
-
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Local de Cobrança</label>
-                <input type="text" placeholder="Local de Cobrança" class="input input-bordered rounded-lg w-2/3" />
-            </div>
+            <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10 h-20 mb-14">
+                Cancelar
+            </button>
+            <!-- Criar Perfil Button, at lease one phone must be filled -->
+            <button type="submit"
+                class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
+                :disabled="!(var_personalcontact.length == 9 || var_workcontact.length == 9 || var_residentialcontact.length == 9)">
+                Criar perfil
+            </button>
+            <!-- <button type="submit" href="#" hx-get="./pages/events.html" hx-target="#content" -->
+            <!--     class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14" -->
+            <!--     :disabled="!(var_personalcontact.length == 9 || var_workcontact.length == 9 || var_residentialcontact.length == 9)"> -->
+            <!--     Criar perfil -->
+            <!-- </button> -->
         </div>
-        <!-- Right Column -->
-        <div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Morada</label>
-                <input type="text" placeholder="Morada" class="input input-bordered rounded-lg w-2/3" />
-            </div>
-
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Freguesia</label>
-                <input type="text" placeholder="Freguesia" class="input input-bordered rounded-lg w-2/3" />
-            </div>
-
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Concelho</label>
-                <input type="text" placeholder="Concelho" class="input input-bordered rounded-lg w-2/3" />
-            </div>
-
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">C.P.</label>
-                <input type="text" placeholder="Código Postal" class="input input-bordered rounded-lg w-2/3" />
-            </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Tel. Residencial<span class="text-red-500">
-                        *</span></label>
-                <input type="text" placeholder="Telefone Residencial" class="input input-bordered rounded-lg w-2/3"
-                    x-model="var_residentialcontact" required inputmode="numeric" maxlength="9"
-                    @input="var_residentialcontact = var_residentialcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
-            </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Tel. Trabalho<span
-                        class="text-red-500">*</span></label>
-                <input type="text" placeholder="Telefone Trabalho" class="input input-bordered rounded-lg w-2/3"
-                    x-model="var_workcontact" required inputmode="numeric" maxlength="9"
-                    @input="var_workcontact = var_workcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
-            </div>
-            <div class="flex items-center mb-6">
-                <label class="w-1/3 text-gray-700 font-semibold">Telemóvel<span class="text-red-500"> *</span></label>
-                <input type="text" placeholder="Telemóvel" class="input input-bordered rounded-lg w-2/3"
-                    x-model="var_personalcontact" required inputmode="numeric" maxlength="9"
-                    @input="var_personalcontact = var_personalcontact.replace(/[^0-9]/g, '').slice(0, 9)" />
-            </div>
-        </div>
-        <!-- Observações (Textarea Spanning Two Columns) -->
-        <div class="col-span-2">
-            <div class="flex items-center mb-6">
-                <textarea placeholder="Observações"
-                    class="textarea textarea-bordered textarea-lg rounded-lg w-full"></textarea>
-            </div>
-        </div>
-        <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg fixed rounded-full bottom-11 left-10 h-20 mb-14">
-            Cancelar
-        </button>
-        <!-- Criar Perfil Button, at lease one phone must be filled -->
-        <button href="#" hx-get="./pages/events.html" hx-target="#content"
-            class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success fixed rounded-full bottom-11 right-10 h-20 mb-14"
-            :disabled="!(var_personalcontact.length == 9 || var_workcontact.length == 9 || var_residentialcontact.length == 9)">
-            Criar perfil
-        </button>
-    </div>
+        <div id="response">ss</div>
+    </form>
 </div>
