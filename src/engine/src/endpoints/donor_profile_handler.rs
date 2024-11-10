@@ -1,26 +1,27 @@
 use axum::{extract::State, Json};
 use chrono::{NaiveDateTime, NaiveTime};
 use hyper::StatusCode;
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Deserializer, Serialize};
 use sqlx::{types::uuid, PgPool};
 use uuid::Uuid;
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Doador {
-    pub id: Option<Uuid>,                 // UUID for unique identifier
-    pub nome: Option<String>,             // Nullable name of the donor
-    pub email: Option<String>,            // Nullable email
-    pub horario: Option<NaiveTime>,       // Nullable time format (e.g., '09:00')
-    pub doador: Option<bool>,             // Nullable donor status (true/false)
-    pub morada: Option<String>,           // Nullable address
-    pub freguesia: Option<String>,        // Nullable parish
-    pub concelho: Option<String>,         // Nullable county
-    pub codigo_postal: Option<String>,    // Nullable postal code
-    pub tel_residencial: Option<String>,  // Nullable home phone
-    pub tel_trabalho: Option<String>,     // Nullable work phone
-    pub telemovel: Option<String>,        // Nullable mobile phone
+    pub id: Option<Uuid>,      // UUID for unique identifier
+    pub nome: Option<String>,  // Nullable name of the donor
+    pub email: Option<String>, // Nullable email
+    #[serde(default, deserialize_with = "deserialize_naivetime")]
+    pub horario: Option<NaiveTime>, // Nullable time format (e.g., '09:00')
+    pub doador: Option<bool>,  // Nullable donor status (true/false)
+    pub morada: Option<String>, // Nullable address
+    pub freguesia: Option<String>, // Nullable parish
+    pub concelho: Option<String>, // Nullable county
+    pub codigo_postal: Option<String>, // Nullable postal code
+    pub tel_residencial: Option<String>, // Nullable home phone
+    pub tel_trabalho: Option<String>, // Nullable work phone
+    pub telemovel: Option<String>, // Nullable mobile phone
     pub criado_em: Option<NaiveDateTime>, // Nullable timestamp for creation
-    pub observacoes: Option<String>,      // Nullable notes or observations
+    pub observacoes: Option<String>, // Nullable notes or observations
 }
 
 pub async fn new_temp_profile_started() {
@@ -28,6 +29,19 @@ pub async fn new_temp_profile_started() {
 }
 pub async fn new_temp_profile_cancelled() {
     todo!()
+}
+
+fn deserialize_naivetime<'de, D>(deserializer: D) -> Result<Option<NaiveTime>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    let s: Option<&str> = Option::deserialize(deserializer)?;
+    match s {
+        Some("") | None => Ok(None), // Treat empty strings as None
+        Some(time_str) => NaiveTime::parse_from_str(time_str, "%H:%M")
+            .map(Some)
+            .map_err(serde::de::Error::custom),
+    }
 }
 
 pub async fn new_donor(State(db_pool): State<PgPool>, Json(new_donor): Json<Doador>) -> Result<(StatusCode, String), (StatusCode, String)> {
