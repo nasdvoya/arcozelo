@@ -23,6 +23,14 @@ pub struct Doador {
     pub observacoes: Option<String>,
 }
 
+pub async fn new_temp_profile_started() {
+    todo!()
+}
+
+pub async fn new_temp_profile_cancelled() {
+    todo!()
+}
+
 pub async fn new_donor(State(db_pool): State<PgPool>, Json(new_donor): Json<Doador>) -> Result<(StatusCode, String), (StatusCode, String)> {
     println!("new_donor:");
     let uuid = new_donor.id.unwrap_or_else(Uuid::new_v4);

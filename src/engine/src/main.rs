@@ -1,8 +1,8 @@
-use axum::http::HeaderValue;
+use axum::http::{response, HeaderValue};
 use axum::routing::post;
 use axum::{routing::get, Router};
 use endpoints::{account_handler, donor_events_handler, donor_profile_handler};
-use hyper::Method;
+use hyper::{Method, StatusCode};
 use sqlx::postgres::PgPoolOptions;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -11,6 +11,8 @@ mod endpoints;
 #[tokio::main]
 async fn main() {
     dotenv::dotenv().expect("Failed to load .env file");
+
+    let resp = reqwest::get("https://httpbin.org/ip").await.unwrap();
 
     let api_address = std::env::var("API_ADDRESS").unwrap_or("127.0.0.1:8000".to_owned());
     let database_url = std::env::var("DATABASE_URL").expect("Database not found");
@@ -41,4 +43,10 @@ async fn main() {
 
     println!("listening on port 8000");
     axum::serve(tcp_listener, api).await.unwrap();
+}
+
+#[tokio::test]
+async fn test_get_endpoints() {
+    let response = reqwest::get("htto://127.0.0.1/donor-profile/action/start-temp-profile").await.unwrap();
+    assert_eq!(response.status(), StatusCode::OK)
 }
