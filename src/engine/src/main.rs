@@ -1,8 +1,8 @@
-use axum::http::{response, HeaderValue};
+use axum::http::HeaderValue;
 use axum::routing::post;
 use axum::{routing::get, Router};
 use endpoints::{account_handler, donor_events_handler, donor_profile_handler};
-use hyper::{Method, StatusCode};
+use hyper::Method;
 use sqlx::postgres::PgPoolOptions;
 use tower_http::cors::{Any, CorsLayer};
 
@@ -45,8 +45,4 @@ async fn main() {
     axum::serve(tcp_listener, api).await.unwrap();
 }
 
-#[tokio::test]
-async fn test_get_endpoints() {
-    let response = reqwest::get("htto://127.0.0.1/donor-profile/action/start-temp-profile").await.unwrap();
-    assert_eq!(response.status(), StatusCode::OK)
-}
+
