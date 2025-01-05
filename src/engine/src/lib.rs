@@ -1,12 +1,23 @@
-use actix_web::{dev::Server, http, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
-use actix_cors::Cors;
+use std::net::TcpListener;
+
+use actix_web::{dev::Server, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
 
 async fn greet(req: HttpRequest) -> impl Responder {
     let name = req.match_info().get("name").unwrap_or("World");
     format!("Hello {}!", &name)
 }
 
-async fn health_check() -> impl Responder {
+async fn health_check() -> HttpResponse {
+    HttpResponse::Ok().finish()
+}
+
+#[derive(serde::Deserialize)]
+struct FormData {
+    email: String,
+    name: String
+}
+
+async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
     HttpResponse::Ok().finish()
 }
 
@@ -25,33 +36,34 @@ async fn logout() -> impl Responder {
     HttpResponse::Ok().finish()
 }
 
-pub fn run() -> Result<Server, std::io::Error> {
+pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
     let server = HttpServer::new(|| {
-        let cors = Cors::default()
-            .allowed_origin("https://localhost:8000")
-            .allowed_origin_fn(|origin, _req_head| {
-                origin.as_bytes().ends_with(b".rust-lang.org")
-            })
-            .allowed_methods(vec!["GET", "POST"])
-            .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
-            .allowed_header(http::header::CONTENT_TYPE)
-            .max_age(3600);
+        // let cors = Cors::default()
+        //     .allowed_origin("https://localhost:8000")
+        //     .allowed_origin_fn(|origin, _req_head| {
+        //         origin.as_bytes().ends_with(b".rust-lang.org")
+        //     })
+        //     .allowed_methods(vec!["GET", "POST"])
+        //     .allowed_headers(vec![http::header::AUTHORIZATION, http::header::ACCEPT])
+        //     .allowed_header(http::header::CONTENT_TYPE)
+        //     .max_age(3600);
         App::new()
-            .wrap(cors)
+            // .wrap(cors)
             .route("/", web::get().to(greet))
             .route("/{name}", web::get().to(greet))
             .route("/health_check", web::get().to(health_check))
+            .route("/sub", web::post().to(subscribe))
             .route("/login", web::get().to(login))
-            .route("logout", web::get().to(logout))
-            .route("donor-event/action/start-new-event",web::get().to(donor_events_handler))
-            .route("donor-event/action/cancel-new-event",web::get().to(donor_events_handler))
-            .route("donor-profile/action/start-temp-event",web::get().to(donor_profile_handler))
-            .route("donor-profile/action/cancel-temp-event",web::get().to(donor_profile_handler))
-            .route("donor-event",web::get().to(donor_events_handler))
-            .route("donor-profile",web::get().to(donor_profile_handler))
-            .route("donor-profile/all",web::get().to(donor_profile_handler))
+            .route("/logout", web::post().to(logout))
+            .route("/donor-event/action/start-new-event",web::get().to(donor_events_handler))
+            .route("/donor-event/action/cancel-new-event",web::get().to(donor_events_handler))
+            .route("/donor-profile/action/start-temp-event",web::get().to(donor_profile_handler))
+            .route("/donor-profile/action/cancel-temp-event",web::get().to(donor_profile_handler))
+            .route("/donor-event",web::get().to(donor_events_handler))
+            .route("/donor-profile",web::get().to(donor_profile_handler))
+            .route("/1donor-profile/all",web::get().to(donor_profile_handler))
     })
-    .bind("127.0.0.1:8000")?
+    .listen(listener)?
     .run();
 
     Ok(server)
