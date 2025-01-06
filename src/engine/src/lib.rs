@@ -1,24 +1,13 @@
 use std::net::TcpListener;
-
 use actix_web::{dev::Server, web, App, HttpRequest, HttpResponse, HttpServer, Responder};
+
+pub mod configuration;
+pub mod routes;
+pub mod startup;
 
 async fn greet(req: HttpRequest) -> impl Responder {
     let name = req.match_info().get("name").unwrap_or("World");
     format!("Hello {}!", &name)
-}
-
-async fn health_check() -> HttpResponse {
-    HttpResponse::Ok().finish()
-}
-
-#[derive(serde::Deserialize)]
-struct FormData {
-    email: String,
-    name: String
-}
-
-async fn subscribe(_form: web::Form<FormData>) -> HttpResponse {
-    HttpResponse::Ok().finish()
 }
 
 async fn donor_events_handler() -> impl Responder {
@@ -51,8 +40,8 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
             // .wrap(cors)
             .route("/", web::get().to(greet))
             .route("/{name}", web::get().to(greet))
-            .route("/health_check", web::get().to(health_check))
-            .route("/sub", web::post().to(subscribe))
+            .route("/health_check", web::get().to(routes::health_check))
+            .route("/sub", web::post().to(routes::subscribe))
             .route("/login", web::get().to(login))
             .route("/logout", web::post().to(logout))
             .route("/donor-event/action/start-new-event",web::get().to(donor_events_handler))
