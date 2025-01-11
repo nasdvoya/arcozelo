@@ -2,6 +2,9 @@
 
 use std::net::TcpListener;
 
+use arcozelo_engine::configuration::get_configuration;
+use sqlx::{Connection, PgConnection};
+
 #[tokio::test]
 async fn health_check_works() {
     // Arrange
@@ -23,8 +26,11 @@ async fn health_check_works() {
 async fn subscribe_returns_a_200_for_valid_form_data() {
     // Arrange
     let address = spawn_app();
+    let configuration = get_configuration().expect("Failed to read configuration");
+    let connection_string = configuration.database.connection_string();
+    let connection = PgConnection::connect(&connection_string).await.expect("Failed to connect to Postgres.");
     let client = reqwest::Client::new();
-    println!("{}/sub", address);
+
     // Act
     let body = "name=foo%20bar&email=some%40gmail.com";
     let response = client
