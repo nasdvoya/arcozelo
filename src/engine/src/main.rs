@@ -1,9 +1,11 @@
 use std::net::TcpListener;
 use arcozelo_engine::configuration::get_configuration;
 use arcozelo_engine::run;
+use dotenv::dotenv;
 
 #[tokio::main]
 async fn main() -> Result<(), std::io::Error> {
+    dotenv().ok();
     let configuration = get_configuration().expect("Failed to get configuration");
 
     let address = format!("127.0.0.1:{}", configuration.app_port);

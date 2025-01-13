@@ -32,7 +32,7 @@ pub fn run(listener: TcpListener) -> Result<Server, std::io::Error> {
             .route("/", web::get().to(greet))
             .route("/{name}", web::get().to(greet))
             .route("/health_check", web::get().to(routes::health_check))
-            .route("/sub", web::post().to(routes::subscribe))
+            .route("/subscriptions", web::post().to(routes::subscribe))
             .route("/login", web::get().to(login))
             .route("/logout", web::post().to(logout))
             .route("/donor-event/action/start-new-event",web::get().to(donor_events_handler))
