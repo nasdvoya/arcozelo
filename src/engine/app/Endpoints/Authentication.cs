@@ -6,13 +6,12 @@ public static class Authentication
     {
         var donors = app.MapGroup("/donor");
 
-        donors.MapGet("/test/", (HttpContext ctx) => {
+        donors.MapGet("/test/", (HttpContext ctx) =>
+        {
             return Results.Ok("");
         })
         .WithName("test")
         .WithSummary("summary")
         .WithDescription("description");
-
-
     }
 }
