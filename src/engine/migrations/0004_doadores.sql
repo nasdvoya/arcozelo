@@ -1,2 +1,0 @@
-ALTER TABLE doadores
-ALTER COLUMN horario DROP NOT NULL;

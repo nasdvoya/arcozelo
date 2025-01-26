@@ -1,8 +1,8 @@
-namespace app;
+﻿namespace app.Endpoints;
 
 public static class Authentication
 {
-    public static void AddDonorEndpoints(this IEndpointRouteBuilder app)
+    public static void AddAuthenticationEndpoints(this IEndpointRouteBuilder app)
     {
         var donors = app.MapGroup("/donor");
 
