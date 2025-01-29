@@ -10,7 +10,7 @@ public static class Donors
     {
         app.MapPost(
                 "/donor-profile/",
-                async ([FromForm] DonorProfile profile, DonorDbContext db) =>
+                async ([FromBody] DonorProfile profile, DonorDbContext db) =>
                 {
                     db.DonorProfiles.Add(profile);
                     await db.SaveChangesAsync();

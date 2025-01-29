@@ -17,14 +17,29 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
+        builder.Configuration.AddJsonFile(
+            "appsettings.json",
+            optional: false,
+            reloadOnChange: true
+        );
         builder.Logging.AddSerilog(logger);
         builder.Services.AddAuthorization();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
-        // DB context
         builder.Services.AddDbContext<DonorDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         );
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy(
+                "AllowAll",
+                policy =>
+                {
+                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                }
+            );
+        });
+
         var app = builder.Build();
 
         // Apply migrations
@@ -42,6 +57,7 @@ public class Program
 
         app.UseAuthorization();
         app.AddDonorEndpoints();
+        app.UseCors("AllowAll");
 
         app.Run();
     }
