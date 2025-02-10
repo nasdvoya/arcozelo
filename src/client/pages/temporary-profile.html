@@ -4,13 +4,14 @@
   x-data="{ var_personalcontact: '', var_workcontact: '', var_residentialcontact: '' }"
 >
   <h2 class="text-5xl font-bold mb-12 text-center">Perfil temporario</h2>
+
   <form
-    hx-post="http://127.0.0.1:5000/donor-profile"
-    hx-target="#response"
+    hx-post="http://127.0.0.1:5000/donor/profile"
     hx-ext="json-enc"
     hx-encoding="json"
     hx-headers='{"Content-Type": "application/json"}'
-    hx-on="htmx:responseError: function(evt) { document.querySelector('#response').innerText = 'Error creating profile: ' + evt.detail.xhr.responseText; }"
+    <!-- hx-on::after-request="if (event.detail.successful) { window.location.href = './pages/events.html'; }" -->
+    <!-- hx-on::response-error="document.querySelector('#response').innerText = 'Error creating profile: ' + event.detail.xhr.responseText;" -->
   >
     <div class="grid grid-cols-2 gap-8 text-left">
       <!-- Left Column -->
@@ -171,6 +172,5 @@
         Criar perfil
       </button>
     </div>
-    <div id="response">ss</div>
   </form>
 </div>
